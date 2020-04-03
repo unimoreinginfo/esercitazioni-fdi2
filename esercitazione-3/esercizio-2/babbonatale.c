@@ -8,7 +8,7 @@ void _printSolution(bool*, int);
 
 void babboNatale(int p, int const* pacchi, int n, unsigned i, bool* vcurr, bool* vbest, int sum) {
 
-	// nota: vbest = carico con più pacchi possibili
+	// nota: vbest = carico con pacchi più pesanti
 
 	bool inserted = false;
 
