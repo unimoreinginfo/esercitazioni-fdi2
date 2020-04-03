@@ -4,29 +4,33 @@
 
 void _printSolution(bool*, int);
 bool _isValid(bool*, int, int);
-unsigned int _count(bool*, int, int);
+unsigned int _count(bool*, int);
+
 
 void ombrelloni(int k, int n, unsigned int i, bool* vcurr, unsigned int* nsol) {
+
+	if (i >= n - 1 && _count(vcurr, n) == k) { // ci devono essere almeno k amici perché lo schema sia valido
+		*nsol++;
+		_printSolution(vcurr, n);
+		return;
+	}
+	
+	// mettendo il controllo qui in alto risparmiamo dei cicli
 
 	for (int j = i; j < n; j++) {
 
 		if (_isValid(vcurr, j, n)) { // controlliamo la validità del posto
 
-			vcurr[j] = 1;
-			ombrelloni(k, n, j + 1, vcurr, &nsol);
+			if (_count(vcurr, n) < k) // controlliamo che ci siano meno di k elementi, dato che gli amici sono al massimo k
+				vcurr[j] = 1; // se è il caso allora inseriamolo
+
+			ombrelloni(k, n, j + 1, vcurr, &nsol); // il passo viene eseguito lo stesso
 
 		}
 
 		vcurr[j] = 0;
 
 	}
-
-	if (i >= n - 1 && _count(vcurr, n, 1) == k) { // serve contare che ci siano almeno k amici perché la soluzione sia valida
-		*nsol++;
-		_printSolution(vcurr, n);
-	}
-	
-	return; // lo sposto qui per correttezza, dentro le parentesi faceva schifo
 
 }
 
