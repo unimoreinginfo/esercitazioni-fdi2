@@ -8,7 +8,7 @@ void _printSolution(bool*, int);
 
 void babboNatale(int p, int const* pacchi, int n, unsigned i, bool* vcurr, bool* vbest, int sum) {
 
-	// nota: vbest = carico con pi� pacchi possibili
+	// nota: vbest = carico con più pacchi possibili
 
 	bool inserted = false;
 
@@ -23,22 +23,28 @@ void babboNatale(int p, int const* pacchi, int n, unsigned i, bool* vcurr, bool*
 
 	for (int j = i; j < n; j++) {
 
-		if (_isValid(pacchi, j, sum, p)) {
+		if (_isValid(pacchi, j, sum, p)) { // controlliamo che il pacco possa stare all'interno dell'array semplicemente verificandone il peso
 			
-			inserted = true;
+			inserted = true; // inseriamo il pacco
+			/* 
+				poiché la variabile inserted sussiste per ogni chiamata ricorsiva (dato che è interna alla funzione)
+				possiamo "bactrackare" anche la somma, in modo da sapere sempre qual è il peso del vettore corrente
+			*/
+			
 			vcurr[j] = 1;
 			sum += pacchi[j];
 			babboNatale(p, pacchi, n, j + 1, vcurr, vbest, sum);
 
 		}
 
-		vcurr[j] = 0;
-		if(inserted) sum -= pacchi[j];
+		vcurr[j] = 0; // backtrack del pacco, togliamo il pacco appena messo per esplorare tutte le altre combinazioni
+		if(inserted) sum -= pacchi[j]; // backtrack della somma
 
 	}
 
 	if(i == 0)
-		_printSolution(vbest, n);
+		_printSolution(vbest, n); 
+	// stampiamo vbest quando i è 0, ovvero quando siamo certi di essere arrivati alla prima chiamata ricorsiva fatta nello stack
 
 }
 
