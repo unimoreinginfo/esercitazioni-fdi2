@@ -3,72 +3,73 @@
 #include <stdbool.h>
 
 void _printSolution(bool*, int);
-bool _isValid(bool*, int, int);
+bool _isValid(bool*, int);
 unsigned int _count(bool*, int);
 
 
 void ombrelloni(int k, int n, unsigned int i, bool* vcurr, unsigned int* nsol) {
-
-	if (i >= n - 1 && _count(vcurr, n) == k) { // ci devono essere almeno k amici perché lo schema sia valido
-		*nsol++;
+	
+	if (k == _count(vcurr, n)) {
+		
+		// il caso limite è quando dentro alla fila ci sono già due amici
+		// ci fermiamo qua
+		
 		_printSolution(vcurr, n);
 		return;
+
 	}
-	
-	// mettendo il controllo qui in alto risparmiamo dei cicli
 
-	for (int j = i; j < n; j++) {
+	if (i == n)
+		return;
 
-		if (_isValid(vcurr, j, n)) { // controlliamo la validità del posto
+	if (_isValid(vcurr, i)) {
 
-			if (_count(vcurr, n) < k) // controlliamo che ci siano meno di k elementi, dato che gli amici sono al massimo k
-				vcurr[j] = 1; // se è il caso allora inseriamolo
+		if (_count(vcurr, n) < k) {
 
-			ombrelloni(k, n, j + 1, vcurr, &nsol); // il passo viene eseguito lo stesso
+			vcurr[i] = 1;
+			ombrelloni(k, n, i + 1, vcurr, nsol);
+			vcurr[i] = 0;
 
 		}
 
-		vcurr[j] = 0;
-
 	}
-
-}
-
-unsigned int _count(bool* vector, int size) {
 	
-	unsigned int times = 0;
-
-	for (int i = 0; i < size; i++) {
-
-		if (vector[i])
-			times++;
-
-	}
-
-	return times;
-
+	ombrelloni(k, n, i + 1, vcurr, nsol);
 
 }
 
 void _printSolution(bool* vector, int size) {
 
 	for (int i = 0; i < size; i++)
-		printf("%d", vector[i]);
-	
+		printf("%d ", vector[i]);
+
 	printf("\n");
 
 }
 
-bool _isValid(bool *vector, int current_index, int n) {
+unsigned int _count(bool* vector, int size) {
 
-	// uno slot è valido se, nell'array in questione, i posti immediatamente vicini sono azzerati
-	
-	if (current_index == 0 && !vector[current_index + 1]) return true;
+	unsigned int n = 0;
 
-	if (current_index == n - 1 && !vector[current_index - 1]) return true;
+	for (int i = 0; i < size; i++) {
 
-	if (vector[current_index + 1] || vector[current_index - 1]) return false;
+		if (vector[i])
+			n++;
 
-	return true;
+	}
+
+	return n;
+
+}
+
+bool _isValid(bool* vector, int index) {
+
+	if (index == 0)
+		return true;
+
+	if (!vector[index - 1])
+		return true;
+
+	return false;
 
 }
