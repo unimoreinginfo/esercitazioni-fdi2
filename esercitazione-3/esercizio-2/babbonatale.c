@@ -3,48 +3,43 @@
 #include <stdlib.h>
 
 bool _isValid(int const*, int, int, int);
-unsigned int _weight(bool*, int const*, int);
+unsigned int _count(bool*, int);
 void _printSolution(bool*, int);
 
 void babboNatale(int p, int const* pacchi, int n, unsigned i, bool* vcurr, bool* vbest, int sum) {
 
-	// nota: vbest = carico con pacchi più pesanti
-
-	bool inserted = false;
+	// nota: vbest = carico con più pacchi possibili, con peso totale inferiore a p
 
 	if (i == n) {
 
-		if (_weight(vcurr, pacchi, n) > _weight(vbest, pacchi, n))
-			memcpy(vbest, vcurr, n);
+		if (_count(vcurr, n) > _count(vbest, n))
+			memcpy(vbest, vcurr, sizeof(int) * n);
 
 		return;
 
 	}
 
-	for (int j = i; j < n; j++) {
+	bool inserted = false;
 
-		if (_isValid(pacchi, j, sum, p)) { // controlliamo che il pacco possa stare all'interno dell'array semplicemente verificandone il peso
-			
-			inserted = true; // inseriamo il pacco
-			/* 
-				poiché la variabile inserted sussiste per ogni chiamata ricorsiva (dato che è interna alla funzione)
-				possiamo "bactrackare" anche la somma, in modo da sapere sempre qual è il peso del vettore corrente
-			*/
-			
-			vcurr[j] = 1;
-			sum += pacchi[j];
-			babboNatale(p, pacchi, n, j + 1, vcurr, vbest, sum);
+	if (_isValid(pacchi, i, sum, p)) {
 
-		}
+		vcurr[i] = 1;
+		inserted = true;
+		sum += pacchi[i];
 
-		vcurr[j] = 0; // backtrack del pacco, togliamo il pacco appena messo per esplorare tutte le altre combinazioni
-		if(inserted) sum -= pacchi[j]; // backtrack della somma
+		babboNatale(p, pacchi, n, i + 1, vcurr, vbest, sum);
+
+		vcurr[i] = 0;
 
 	}
 
-	if(i == 0)
-		_printSolution(vbest, n); 
-	// stampiamo vbest quando i è 0, ovvero quando siamo certi di essere arrivati alla prima chiamata ricorsiva fatta nello stack
+	if (inserted)
+		sum -= pacchi[i];
+
+	if(i != n - 1) babboNatale(p, pacchi, n, i + 1, vcurr, vbest, sum);
+
+	if (i == 0)
+		_printSolution(vbest, n);
 
 }
 
@@ -57,19 +52,19 @@ bool _isValid(int const* pacchi, int current_index, int sum, int max_value) {
 
 }
 
-unsigned int _weight(bool* arr, int const* weights, int len) {
+unsigned int _count(bool* arr, int len) {
 
-	unsigned int weight = 0;
+	unsigned int count = 0;
 
 	for (int i = 0; i < len; i++) {
 		if (arr[i]) {
 
-			weight += weights[i];
+			count++;
 
 		}
 	}
 
-	return weight;
+	return count;
 
 }
 
