@@ -19,8 +19,6 @@ void babboNatale(int p, int const* pacchi, int n, unsigned i, bool* vcurr, bool*
 
 	}
 
-	bool inserted = false;
-
 	if (_isValid(pacchi, i, sum, p)) {
 
 		vcurr[i] = 1;
@@ -28,13 +26,11 @@ void babboNatale(int p, int const* pacchi, int n, unsigned i, bool* vcurr, bool*
 		sum += pacchi[i];
 
 		babboNatale(p, pacchi, n, i + 1, vcurr, vbest, sum);
-
+		
 		vcurr[i] = 0;
-
-	}
-
-	if (inserted)
 		sum -= pacchi[i];
+
+	}		
 
 	if(i != n - 1) babboNatale(p, pacchi, n, i + 1, vcurr, vbest, sum);
 
