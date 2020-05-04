@@ -3,9 +3,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "gioielli.h";
+#include "gioielli.h"
 
-Gioiello* _parse(FILE*);
+Gioiello* _parse(FILE*, int*);
 
 Gioiello* Gioielli(const char* filename, float b, int* ret_size) {
 
@@ -25,7 +25,7 @@ Gioiello* Gioielli(const char* filename, float b, int* ret_size) {
 
 		/*
 			
-			La traccia non mi è troppo chiara (gli esempi non sono troppo esaustivi),
+			La traccia non mi Ã¨ troppo chiara (gli esempi non sono troppo esaustivi),
 			quindi prendete con le pinze questa soluzione e aspettiamo che torni a funzionare il sito delle consegne 
 			per verificare che sia corretta
 
