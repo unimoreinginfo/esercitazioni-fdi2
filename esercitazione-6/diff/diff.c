@@ -8,7 +8,8 @@ Item* _parse(FILE* file, Item* list);
 Item* Diff(const Item* i1, const Item* i2) {
 
 	Item* diff = NULL;
-	Item* head1 = i1, * head2 = i2, * diff_top = malloc(sizeof(Item));
+	const Item* head1 = i1, * head2 = i2;
+	Item* diff_top = malloc(sizeof(Item));
 	int size = 0;
 
 	// attezione: questa funzione fa schifo
@@ -18,7 +19,7 @@ Item* Diff(const Item* i1, const Item* i2) {
 		if (!i2)
 			break;
 
-		Item* current_item = i1;
+		const Item* current_item = i1;
 		bool found = false;
 
 		while (i2) {
@@ -34,7 +35,7 @@ Item* Diff(const Item* i1, const Item* i2) {
 
 		if (!found) {
 
-			Item* t = calloc(sizeof(Item)); // l'ultimo item aggiunto è sempre NULL
+			Item* t = malloc(sizeof(Item)); // l'ultimo item aggiunto Ã¨ sempre NULL
 			if (!diff)
 				diff = diff_top;
 
@@ -93,6 +94,8 @@ Item* _parse(FILE* file, Item* list) {
 		list = InsertBackList(list, &r);
 
 	}
+	
+	fclose(file);
 
 	return list;
 
