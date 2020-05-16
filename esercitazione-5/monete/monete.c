@@ -2,12 +2,12 @@
 #include <stdio.h>
 extern int* monete(int* t, int size, int b) {
 
-	// monete gi‡ ordinate
+	// monete gi√† ordinate
 
 	if (b <= 0)
 		return NULL;
 
-	int* result = calloc(size, sizeof(int) * size);
+	int* result = calloc(size, sizeof(int));
 	int current_sum = 0;
 
 	for (int i = 0; i < size; i++) {
