@@ -30,6 +30,8 @@ Item* _parse(FILE* file, Item* list) {
 		list = InsertHeadList(&r, list);
 
 	}
+	
+	fclose(file);
 
 	return list;
 
