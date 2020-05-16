@@ -7,7 +7,7 @@ bool _isValid(Item* list, ElemType* compare);
 
 ElemType MaxElement(const Item* i) {
 
-	Item* head = i;
+	const Item* head = i;
 	ElemType max = head->value;
 	head = head->next;
 
@@ -53,7 +53,7 @@ Item* _parse(FILE* file, Item* list) {
 		list = InsertBackList(list, &r);
 
 	}
-
+	fclose(file);
 	return list;
 
 }
