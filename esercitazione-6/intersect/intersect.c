@@ -3,16 +3,15 @@
 #include <stdio.h>
 
 Item* _parse(FILE* file, Item* list);
-bool _isValid(Item* list, ElemType* compare);
+bool _isValid(Item *list_head, Item* list, int size, ElemType compare);
 Item* _parse(FILE* file, Item* list);
 
 Item* Intersect(const Item* i1, const Item* i2) {
 
-	Item* head1 = i1, * head2 = i2;
+	const Item* head1 = i1, * head2 = i2;
 	Item* intersected = CreateEmptyList();
-	Item* intersected_top = intersected;
 
-	Item* longest, * other, * other_top, * longest_top;
+	const Item* longest, * other, * other_top, * longest_top;
 
 	if (ListLength(i1) >= ListLength(i2)) { longest = i1; other = i2; }
 	else { longest = i2; other = i1; };
