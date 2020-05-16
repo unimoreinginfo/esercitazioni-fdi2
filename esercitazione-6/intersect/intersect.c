@@ -101,6 +101,8 @@ Item* _parse(FILE* file, Item* list) {
 		list = InsertBackList(list, &r);
 
 	}
+	
+	fclose(file);
 
 	return list;
 
