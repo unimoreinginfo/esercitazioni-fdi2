@@ -1,0 +1,1 @@
+#include "tree_int.h"extern int CountDominant(const Node* t);
