@@ -45,7 +45,7 @@ Node* min_helper(Node* n, Node* min, int* is_set) {
 		*is_set = 1;
 	}
 
-	if (n->value < max->value)
+	if (n->value < min->value)
 		min = n;
 
 	min = helper(n->left, min, is_set);

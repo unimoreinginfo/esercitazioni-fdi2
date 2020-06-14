@@ -1,0 +1,1 @@
+#include "tree_int.h"extern const ElemType* DeleteBstNode(const Node* n, const ElemType *key);
