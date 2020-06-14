@@ -1,0 +1,1 @@
+#include <stdbool.h>#include "minheap_int.h"extern bool PopMinHeap(Heap* h, ElemType* e);
