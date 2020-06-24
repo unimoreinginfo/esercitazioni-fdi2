@@ -1,5 +1,5 @@
 # esercitazioni-fdi2
-Soluzioni per vari esami di Fondamenti di Informatica II
+Soluzioni le esercitazioni di Fondamenti di Informatica II
 
 # Come contribuisco?
 Chiunque voglia contribuire a questa repo può clonarla e apportare le modifiche che vuole (oppure può aprire PR se ci sono problemi sulle repo esistenti)
